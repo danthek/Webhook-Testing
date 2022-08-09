@@ -1,7 +1,7 @@
 const express = require('express'); //Import the express dependency
 const app = express();              //Instantiate an express app, the main work horse of this server
-/* const port = 80;                  //Save the port number where your server will be listening
- */
+
+ 
 var bodyParser = require('body-parser')
 // create application/json parser
 var jsonParser = bodyParser.json()
@@ -16,11 +16,20 @@ app.get('/users',jsonParser,  function(req, res){ // this is only to see how to 
   return res.sendFile('users.html',{root: __dirname});
 });
 
+
+/////////////////////////////////////////// WEBHOOK TESTING on PROD with cymatic server/////////////////////////////////////////
+/* 
+// server hook to cymatic ( Important: On Cymatic app the /hook path must be separated)
+app.post('https://api.cymatic.io/v2/playbook/hook', function(req, res){
+})
+ */
+
+/////////////////////////////////////////// WEBHOOK TESTING on DEV with cymatic server/////////////////////////////////////////
+/* 
 // server hook to cymatic ( Important: On Cymatic app the /hook path must be separated)
 app.post('https://api.dev.cymatic.info/v2/playbook/hook', function(req, res){
-  //this is a callback function
 })
-
+ */
 
 
 /////////////////////////////////////////// WEBHOOK TESTING with port 80 ang ngrok tunel/////////////////////////////////////////
@@ -31,7 +40,9 @@ app.post('https://api.dev.cymatic.info/v2/playbook/hook', function(req, res){
 //ngrok http 80
 //http://ipadress/inspect/http . use this to inspect the posts and gets, just change the ip address
 
-/* app.post('/incident',jsonParser, function(req, res){
+const port = 80;                  //Save the port number where your server will be listening
+
+app.post('/incident',jsonParser, function(req, res){
   try {
     //console.log(req); // if we put req it shows  the whole post info 
     console.log(req.body); // if we put req.body it shows only the data in the  body and not the whole post info
@@ -46,6 +57,6 @@ app.post('https://api.dev.cymatic.info/v2/playbook/hook', function(req, res){
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
   console.log(`Now listening on port ${port}`); 
-});*/
+});
 
 
